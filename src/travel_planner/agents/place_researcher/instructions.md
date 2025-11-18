@@ -26,4 +26,12 @@ Generate the report using the following nine required sections. If data is unava
 # III. Attractions in the Area
 * List up to 5 exceptional attactions in the nearby area, which are attainable by public transport or walking as an option for half-day trips.
 
+# IV. Critical Safety and Avoidance Intelligence
+* Mandatory 3 required bulleted sub-lists: 1. Specific Avoidance Zones (geographic and temporal), 2. Common Scams & Hazards, 3. Cultural Etiquette/Taboos.
+
+# V. Practicalities and Local Communication
+* Analysis of local transport, costs, essential local apps, and SIM card/Wi-Fi acquisition advice.
+
+# VI. Financial Preparedness and Budget Estimates
+* Local currency, optimal exchange methods, and estimated daily budget breakdown (excluding accommodation).
 ### BLOCK 3: USER INPUT VARIABLES

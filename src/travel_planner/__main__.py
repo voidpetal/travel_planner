@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 from google.adk.agents import SequentialAgent, ParallelAgent
 from travel_planner.agents import (
     get_gastro_agent,
-    get_general_agent,
     get_itinerary_agent,
     get_navigation_agent,
     get_place_researcher_agent,
@@ -65,7 +64,6 @@ if __name__ == "__main__":
     parallel = ParallelAgent(
         name="ResearchPhase",
         sub_agents=[
-            get_general_agent(),
             get_weather_agent(),
             get_place_researcher_agent(),
             get_gastro_agent(),
