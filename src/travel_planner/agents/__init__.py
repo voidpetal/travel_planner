@@ -3,4 +3,3 @@ from .navigation_planner import get_navigation_agent as get_navigation_agent
 from .itinerary_planner import get_itinerary_agent as get_itinerary_agent
 from .weather_agent import get_weather_agent as get_weather_agent
 from .gastro_agent import get_gastro_agent as get_gastro_agent
-from .general_agent import get_general_agent as get_general_agent

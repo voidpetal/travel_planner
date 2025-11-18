@@ -8,7 +8,7 @@ def get_gastro_agent():
     with open(instructions_path, "r") as file:
         instructions = file.read()
         agent = Agent(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash",
             name="gastro_agent",
             description="An agent that researches food and drinks of a particular place.",
             instruction=instructions,
