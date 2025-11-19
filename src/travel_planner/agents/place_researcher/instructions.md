@@ -35,3 +35,4 @@ Generate the report using the following nine required sections. If data is unava
 # VI. Financial Preparedness and Budget Estimates
 * Local currency, optimal exchange methods, and estimated daily budget breakdown (excluding accommodation).
 ### BLOCK 3: USER INPUT VARIABLES
+Weather data: {weather_data}

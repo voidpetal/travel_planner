@@ -35,12 +35,12 @@ if __name__ == "__main__":
         "--source", type=str, required=False, help="Travel source location", default="Prague, Czechia"
     )
     parser.add_argument(
-        "--travel_duration", type=str, required=False, help="Duration of the travel", default=default_duration
+        "--duration", type=str, required=False, help="Duration of the travel", default=default_duration
     )
     parser.add_argument("--month", type=str, required=False, help="Month of travel", default=default_month)
     parser.add_argument("--dates", type=str, required=False, help="Specific dates", default="Any")
     parser.add_argument(
-        "--extra_context", type=str, help="Extra context for the travel", default=default_extra_context
+        "--extra-context", type=str, help="Extra context for the travel", default=default_extra_context
     )
     parser.add_argument(
         "--personas",
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     travel_request = TravelRequest(
         destination=args.destination,
         source=args.source,
-        travel_duration=args.travel_duration,
+        travel_duration=args.duration,
         month=args.month,
         dates=args.dates,
         persona=args.personas,
@@ -65,14 +65,13 @@ if __name__ == "__main__":
         name="ResearchPhase",
         sub_agents=[
             get_weather_agent(),
-            get_place_researcher_agent(),
             get_gastro_agent(),
             get_navigation_agent(),
         ],
     )
     pipeline = SequentialAgent(
         name="TravelPlanning",
-        sub_agents=[parallel, get_itinerary_agent()],
+        sub_agents=[parallel, get_place_researcher_agent(), get_itinerary_agent()],
     )
 
     response = run_agent(pipeline, travel_request.to_string())
