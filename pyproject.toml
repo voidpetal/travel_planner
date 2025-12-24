@@ -5,7 +5,7 @@ description = "Agentic travel planner"
 authors = [
     {name = "Kai Hodžić", email = "hodzic.e.k@outlook.com"},
 ]
-dependencies = ["google-adk>=1.18.0", "pydantic>=2.12.4", "aiohttp>=3.13.2"]
+dependencies = ["google-adk>=1.18.0", "pydantic>=2.12.4", "aiohttp>=3.13.2", "gradio>=6.2.0"]
 requires-python = ">=3.13"
 readme = "README.md"
 license = {text = "MIT"}
@@ -17,6 +17,9 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
+
+[tool.pdm.scripts]
+run_app = {call = "travel_planner.gradio_app:main"}
 
 [dependency-groups]
 dev = [
