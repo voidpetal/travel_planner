@@ -10,11 +10,32 @@ from travel_planner.agents import (
 from travel_planner.utils import run_agent, TravelRequest
 from argparse import ArgumentParser
 from datetime import date
+
 load_dotenv()
 
 
+def run_travel_planner(travel_request: TravelRequest) -> str:
+    """Run the agent pipeline for a TravelRequest and return the response string.
+
+    This function allows the package to be invoked programmatically (e.g. from a UI).
+    """
+    parallel = ParallelAgent(
+        name="ResearchPhase",
+        sub_agents=[
+            get_weather_agent(),
+            get_gastro_agent(),
+            get_navigation_agent(),
+        ],
+    )
+    pipeline = SequentialAgent(
+        name="TravelPlanning",
+        sub_agents=[parallel, get_place_researcher_agent(), get_itinerary_agent()],
+    )
+
+    return run_agent(pipeline, travel_request.to_string())
+
+
 if __name__ == "__main__":
-    
     default_personas = [
         "Budget but Comfort",
         "Slow Traveler",
@@ -32,15 +53,34 @@ if __name__ == "__main__":
         "--destination", type=str, required=True, help="Travel destination"
     )
     parser.add_argument(
-        "--source", type=str, required=False, help="Travel source location", default="Prague, Czechia"
+        "--source",
+        type=str,
+        required=False,
+        help="Travel source location",
+        default="Prague, Czechia",
     )
     parser.add_argument(
-        "--duration", type=str, required=False, help="Duration of the travel", default=default_duration
+        "--duration",
+        type=str,
+        required=False,
+        help="Duration of the travel",
+        default=default_duration,
     )
-    parser.add_argument("--month", type=str, required=False, help="Month of travel", default=default_month)
-    parser.add_argument("--dates", type=str, required=False, help="Specific dates", default="Any")
     parser.add_argument(
-        "--extra-context", type=str, help="Extra context for the travel", default=default_extra_context
+        "--month",
+        type=str,
+        required=False,
+        help="Month of travel",
+        default=default_month,
+    )
+    parser.add_argument(
+        "--dates", type=str, required=False, help="Specific dates", default="Any"
+    )
+    parser.add_argument(
+        "--extra-context",
+        type=str,
+        help="Extra context for the travel",
+        default=default_extra_context,
     )
     parser.add_argument(
         "--personas",
@@ -60,21 +100,7 @@ if __name__ == "__main__":
         persona=args.personas,
         extra_context=args.extra_context,
     )
-
-    parallel = ParallelAgent(
-        name="ResearchPhase",
-        sub_agents=[
-            get_weather_agent(),
-            get_gastro_agent(),
-            get_navigation_agent(),
-        ],
-    )
-    pipeline = SequentialAgent(
-        name="TravelPlanning",
-        sub_agents=[parallel, get_place_researcher_agent(), get_itinerary_agent()],
-    )
-
-    response = run_agent(pipeline, travel_request.to_string())
+    response = run_travel_planner(travel_request)
 
     with open("travel_report.md", "w", encoding="utf-8") as f:
         f.write(response)
